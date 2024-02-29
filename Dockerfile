@@ -4,14 +4,7 @@ LABEL Simon Egli <docker_android_studio_860dd6@egli.online>
 
 ARG USER=android
 
-RUN dpkg --add-architecture i386
-RUN apt-get update && apt-get install -y \
-        build-essential git neovim wget unzip sudo \
-        libc6:i386 libncurses5:i386 libstdc++6:i386 lib32z1 libbz2-1.0:i386 \
-        libxrender1 libxtst6 libxi6 libfreetype6 libxft2 xz-utils vim\
-        qemu qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils libnotify4 libglu1 libqt5widgets5 openjdk-8-jdk openjdk-11-jdk xvfb \
-        && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN dpkg --remove-architecture i386 && apt-get update && apt-get install -y build-essential git neovim wget unzip sudo libc6 libncurses5 libstdc++6 lib32z1 libbz2-1.0 libxrender1 libxtst6 libxi6 libfreetype6 libxft2 xz-utils vim qemu qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils libnotify4 libglu1 libqt5widgets5 openjdk-8-jdk openjdk-11-jdk xvfb && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN groupadd -g 1000 -r $USER
 RUN useradd -u 1000 -g 1000 --create-home -r $USER
